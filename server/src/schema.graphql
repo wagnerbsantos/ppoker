@@ -1,0 +1,39 @@
+type User {
+  id: ID!
+  name: String!
+}
+
+type Room {
+  id: ID!
+  name: String!
+  password: String!
+  topics: [Topic!]
+}
+
+type Topic {
+  id: ID!
+  name: String!
+  room: Room!
+  media: Int
+}
+
+type Vote {
+  id: ID!
+  score: Int!
+  user: User!
+  topic: Topic!
+}
+
+type Query {
+  roomList(filter: String): [Room]
+  topicMedia(topicId: ID!): Topic
+  userList(filter: String): [User]
+}
+
+type Mutation {
+  createRoom(name: String, password: String): Room!
+  createTopic(name: String, roomId: ID): Topic!
+  vote(topicId: ID, userId: ID, score: Int): Vote!
+  signup(name: String): User!
+  login(name: String): User
+}
